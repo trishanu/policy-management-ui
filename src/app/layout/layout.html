@@ -1,0 +1,81 @@
+<div class="wrapper">
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="logo">
+            Policy Management System
+        </div>
+
+        <div class="user">
+
+            Welcome Admin
+
+        </div>
+
+    </header>
+
+    <div class="main">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <ul>
+
+                <li>
+                    <a routerLink="/dashboard"
+                       routerLinkActive="active">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/customers"
+                       routerLinkActive="active">
+                        Customers
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/policies"
+                       routerLinkActive="active">
+                        Policies
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/claims"
+                       routerLinkActive="active">
+                        Claims
+                    </a>
+                </li>
+
+                <li>
+                    <a (click)="logout()">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <!-- Content -->
+
+        <section class="content">
+
+            <router-outlet></router-outlet>
+
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        © 2026 Policy Management System
+
+    </footer>
+
+</div>

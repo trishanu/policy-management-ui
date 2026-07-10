@@ -1,1 +1,85 @@
-<p>customer-dashboard works!</p>
+<div class="dashboard-cards">
+
+    <div class="card customers">
+        <h2>245</h2>
+        <p>Total Customers</p>
+    </div>
+
+    <div class="card active">
+        <h2>220</h2>
+        <p>Active Customers</p>
+    </div>
+
+    <div class="card new">
+        <h2>12</h2>
+        <p>New This Month</p>
+    </div>
+
+    <div class="card today">
+        <h2>3</h2>
+        <p>Today's Registrations</p>
+    </div>
+
+</div>
+<div></div>
+<div class="toolbar">
+
+    <input
+        type="number"
+        placeholder="Enter Customer Id"
+        [(ngModel)]="searchId">
+
+    <button
+        class="search-btn"
+        (click)="searchCustomer()">
+
+        Search
+
+    </button>
+
+    <button
+        class="add-btn">
+
+        + Add Customer
+
+    </button>
+
+</div>
+
+<hr>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Customer No</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let customer of customers">
+
+<td>{{customer.id}}</td>
+
+<td>{{customer.customerNumber}}</td>
+
+<td>{{customer.firstName}} {{customer.lastName}}</td>
+
+<td>{{customer.email}}</td>
+
+<td>{{customer.phone}}</td>
+
+</tr>
+
+</tbody>
+
+</table>

@@ -19,7 +19,7 @@ export class AuthService {
 
       tap((response: any) => {
 
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("token", response.accessToken);
 
       })
 
