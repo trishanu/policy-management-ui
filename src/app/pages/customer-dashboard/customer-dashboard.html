@@ -1,85 +1,258 @@
-<div class="dashboard-cards">
+<div class="customer-page">
 
-    <div class="card customers">
-        <h2>245</h2>
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+      <h2>Customer Management</h2>
+      <p>Manage all registered customers</p>
+    </div>
+
+    <button mat-raised-button color="primary"
+            (click)="openCustomerDialog()">
+      <mat-icon>person_add</mat-icon>
+      Add Customer
+    </button>
+
+  </div>
+
+  <!-- Statistics -->
+
+  <div class="stats-container">
+
+    <mat-card class="stat-card">
+
+      <mat-icon color="primary">groups</mat-icon>
+
+      <div>
+        <h2>{{customers.length}}</h2>
         <p>Total Customers</p>
-    </div>
+      </div>
 
-    <div class="card active">
-        <h2>220</h2>
-        <p>Active Customers</p>
-    </div>
+    </mat-card>
 
-    <div class="card new">
-        <h2>12</h2>
+    <mat-card class="stat-card">
+
+      <mat-icon color="accent">verified_user</mat-icon>
+
+      <div>
+        <h2>{{activeCustomers}}</h2>
+        <p>Active</p>
+      </div>
+
+    </mat-card>
+
+    <mat-card class="stat-card">
+
+      <mat-icon color="warn">person_add</mat-icon>
+
+      <div>
+        <h2>{{newCustomers}}</h2>
         <p>New This Month</p>
-    </div>
+      </div>
 
-    <div class="card today">
-        <h2>3</h2>
-        <p>Today's Registrations</p>
-    </div>
+    </mat-card>
+
+  </div>
+
+  <!-- Search -->
+
+  <mat-card class="search-card">
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Search Customer</mat-label>
+
+      <input matInput
+             placeholder="Customer Id"
+             [(ngModel)]="searchText">
+
+      <button matSuffix
+              mat-icon-button
+              (click)="searchCustomer()">
+
+        <mat-icon>search</mat-icon>
+
+      </button>
+
+    </mat-form-field>
+
+  </mat-card>
+
+  <!-- Customer Table -->
+
+  <mat-card>
+
+    <table mat-table
+           [dataSource]="dataSource"
+           matSort>
+           <ng-container matColumnDef="id">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header>
+
+        ID
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let customer">
+
+        {{ customer.id }}
+
+    </td>
+
+</ng-container>
+
+      <!-- Customer Number -->
+
+      <ng-container matColumnDef="customerNumber">
+
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+
+          Customer No
+
+        </th>
+
+        <td mat-cell
+            *matCellDef="let customer">
+
+          {{customer.customerNumber}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Name -->
+
+      <ng-container matColumnDef="name">
+
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+
+          Name
+
+        </th>
+
+        <td mat-cell
+            *matCellDef="let customer">
+
+          {{customer.firstName}}
+          {{customer.lastName}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Email -->
+
+      <ng-container matColumnDef="email">
+
+        <th mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+
+          Email
+
+        </th>
+
+        <td mat-cell
+            *matCellDef="let customer">
+
+          {{customer.email}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Phone -->
+
+      <ng-container matColumnDef="phone">
+
+        <th mat-header-cell
+            *matHeaderCellDef>
+
+          Phone
+
+        </th>
+
+        <td mat-cell
+            *matCellDef="let customer">
+
+          {{customer.phone}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Actions -->
+
+      <ng-container matColumnDef="actions">
+
+        <th mat-header-cell *matHeaderCellDef>
+
+          Actions
+
+        </th>
+
+        <td mat-cell *matCellDef="let customer">
+
+          <button mat-icon-button
+                  color="primary"
+                  matTooltip="View"
+                  (click)="viewCustomer(customer)">
+
+            <mat-icon>visibility</mat-icon>
+
+          </button>
+
+          <button mat-icon-button
+                  color="accent"
+                  matTooltip="Edit"
+                  (click)="editCustomer(customer)">
+
+            <mat-icon>edit</mat-icon>
+
+          </button>
+
+          <button mat-icon-button
+                  color="warn"
+                  matTooltip="Delete"
+                  (click)="deleteCustomer(customer.id)">
+
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+        </td>
+
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumns">
+      </tr>
+
+      <tr mat-row
+          *matRowDef="let row;
+          columns: displayedColumns;">
+      </tr>
+
+    </table>
+
+    <mat-paginator
+
+        [pageSize]="10"
+        [pageSizeOptions]="[5,10,20,50]"
+        showFirstLastButtons>
+
+    </mat-paginator>
+
+  </mat-card>
 
 </div>
-<div></div>
-<div class="toolbar">
-
-    <input
-        type="number"
-        placeholder="Enter Customer Id"
-        [(ngModel)]="searchId">
-
-    <button
-        class="search-btn"
-        (click)="searchCustomer()">
-
-        Search
-
-    </button>
-
-    <button
-        class="add-btn">
-
-        + Add Customer
-
-    </button>
-
-</div>
-
-<hr>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>ID</th>
-<th>Customer No</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr *ngFor="let customer of customers">
-
-<td>{{customer.id}}</td>
-
-<td>{{customer.customerNumber}}</td>
-
-<td>{{customer.firstName}} {{customer.lastName}}</td>
-
-<td>{{customer.email}}</td>
-
-<td>{{customer.phone}}</td>
-
-</tr>
-
-</tbody>
-
-</table>
