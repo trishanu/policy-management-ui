@@ -1,0 +1,154 @@
+<h2 class="dialog-title">
+
+  {{ mode === 'create' ? 'Add Policy' : 'Update Policy' }}
+
+</h2>
+
+<div class="dialog-content">
+
+  <div class="form-grid">
+
+    <!-- Policy Number -->
+    <div class="form-group">
+
+      <label>Policy Number</label>
+
+      <input
+        type="text"
+        [(ngModel)]="policy.policyNumber"
+        placeholder="Enter Policy Number">
+
+    </div>
+
+    <!-- Policy Type -->
+    <div class="form-group">
+
+      <label>Policy Type</label>
+
+      <select [(ngModel)]="policy.policyType">
+
+        <option value="">Select Policy Type</option>
+
+        <option value="Health Insurance">Health Insurance</option>
+
+        <option value="Life Insurance">Life Insurance</option>
+
+        <option value="Vehicle Insurance">Vehicle Insurance</option>
+
+        <option value="Home Insurance">Home Insurance</option>
+
+        <option value="Travel Insurance">Travel Insurance</option>
+
+      </select>
+
+    </div>
+
+    <!-- Premium -->
+    <div class="form-group">
+
+      <label>Premium Amount</label>
+
+      <input
+        type="number"
+        [(ngModel)]="policy.premiumAmount">
+
+    </div>
+
+    <!-- Coverage -->
+    <div class="form-group">
+
+      <label>Coverage Amount</label>
+
+      <input
+        type="number"
+        [(ngModel)]="policy.coverageAmount">
+
+    </div>
+
+    <!-- Start Date -->
+    <div class="form-group">
+
+      <label>Start Date</label>
+
+      <input
+        type="date"
+        [(ngModel)]="policy.startDate">
+
+    </div>
+
+    <!-- End Date -->
+    <div class="form-group">
+
+      <label>End Date</label>
+
+      <input
+        type="date"
+        [(ngModel)]="policy.endDate">
+
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+
+      <label>Status</label>
+
+      <select [(ngModel)]="policy.status">
+
+        <option value="ACTIVE">ACTIVE</option>
+
+        <option value="EXPIRED">EXPIRED</option>
+
+        <option value="CANCELLED">CANCELLED</option>
+
+      </select>
+
+    </div>
+
+    <!-- Customer Id -->
+   <div class="form-group">
+
+    <label>Customer</label>
+
+    <select
+        [(ngModel)]="policy.customerId"
+        (change)="customerChanged()">
+
+        <option [ngValue]="null">Select Customer</option>
+
+        <option
+            *ngFor="let customer of customers"
+            [ngValue]="customer.id">
+
+            {{customer.customerNumber}} - {{customer.firstName}} {{customer.lastName}}
+
+        </option>
+
+    </select>
+
+</div>
+
+    
+
+  </div>
+
+</div>
+
+<div class="dialog-footer">
+
+  <button
+    class="cancel-btn"
+    (click)="close()">
+
+    Cancel
+
+  </button>
+
+  <button
+    class="save-btn"
+    (click)="savePolicy()">
+
+    {{ mode === 'create' ? 'Save Policy' : 'Update Policy' }}
+
+  </button>
+
+</div>

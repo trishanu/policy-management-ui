@@ -1,0 +1,140 @@
+<h2 class="dialog-title">
+
+    {{ mode === 'create' ? 'Submit Claim' : 'Update Claim' }}
+
+</h2>
+
+<div class="dialog-content">
+
+    <div class="form-grid">
+
+        <!-- Claim Number -->
+        <div class="form-group">
+
+            <label>Claim Number</label>
+
+            <input
+                type="text"
+                [(ngModel)]="claim.claimNumber"
+                placeholder="Enter Claim Number">
+
+        </div>
+
+        <!-- Policy -->
+        <div class="form-group">
+
+            <label>Policy</label>
+
+            <select
+                [(ngModel)]="claim.policyId">
+
+                <option [ngValue]="null">
+
+                    Select Policy
+
+                </option>
+
+                <option
+                    *ngFor="let policy of policies"
+                    [ngValue]="policy.id">
+
+                    {{policy.policyNumber}}
+                    -
+                    {{policy.policyType}}
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Claim Amount -->
+        <div class="form-group">
+
+            <label>Claim Amount</label>
+
+            <input
+                type="number"
+                [(ngModel)]="claim.claimAmount"
+                placeholder="Enter Claim Amount">
+
+        </div>
+
+        <!-- Claim Date -->
+        <div class="form-group">
+
+            <label>Claim Date</label>
+
+            <input
+                type="date"
+                [(ngModel)]="claim.claimDate">
+
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+
+            <label>Status</label>
+
+            <select
+                [(ngModel)]="claim.status">
+
+                <option value="PENDING">
+
+                    PENDING
+
+                </option>
+
+                <option value="APPROVED">
+
+                    APPROVED
+
+                </option>
+
+                <option value="REJECTED">
+
+                    REJECTED
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Description -->
+        <div class="form-group full-width">
+
+            <label>Description</label>
+
+            <textarea
+                rows="5"
+                [(ngModel)]="claim.description"
+                placeholder="Enter claim description">
+
+            </textarea>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="dialog-footer">
+
+    <button
+        class="cancel-btn"
+        (click)="close()">
+
+        Cancel
+
+    </button>
+
+    <button
+        class="save-btn"
+        (click)="saveClaim()">
+
+        {{ mode === 'create' ? 'Submit Claim' : 'Update Claim' }}
+
+    </button>
+
+</div>

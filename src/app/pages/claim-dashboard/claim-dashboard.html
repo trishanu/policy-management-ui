@@ -1,0 +1,149 @@
+<div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+
+        <div>
+            <h2>Claims Management</h2>
+            <p>Manage insurance claims</p>
+        </div>
+
+        <button class="add-btn" (click)="openClaimDialog()">
+
+            + Submit Claim
+
+        </button>
+
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="dashboard-cards">
+
+        <div class="card total">
+            <h2>{{totalClaims}}</h2>
+            <p>Total Claims</p>
+        </div>
+
+        <div class="card pending">
+            <h2>{{pendingClaims}}</h2>
+            <p>Pending</p>
+        </div>
+
+        <div class="card approved">
+            <h2>{{approvedClaims}}</h2>
+            <p>Approved</p>
+        </div>
+
+        <div class="card rejected">
+            <h2>{{rejectedClaims}}</h2>
+            <p>Rejected</p>
+        </div>
+
+    </div>
+
+    <!-- Search -->
+    <div class="toolbar">
+
+        <input type="number" [(ngModel)]="searchText" placeholder="Search Claim Id">
+
+        <button class="search-btn" (click)="searchClaim()">
+
+            Search
+
+        </button>
+
+        <button class="refresh-btn" (click)="loadClaims()">
+
+            Refresh
+
+        </button>
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Claim Id</th>
+
+                    <th>Policy Id</th>
+
+                    <th>Claim Amount</th>
+
+                    <th>Claim Date</th>
+
+                    <th>Status</th>
+
+                    <th>Description</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let claim of claims">
+
+                    <td>{{claim.id}}</td>
+
+                    <td>{{claim.policyId}}</td>
+
+                    <td>₹ {{claim.claimAmount}}</td>
+
+                    <td>{{claim.claimDate}}</td>
+
+                    <td>
+
+                        <span [ngClass]="{
+
+                        'pending':claim.status==='PENDING',
+
+                        'approved':claim.status==='APPROVED',
+
+                        'rejected':claim.status==='REJECTED'
+
+                        }">
+
+                            {{claim.status}}
+
+                        </span>
+
+                    </td>
+
+                    <td>{{claim.description}}</td>
+
+                    <td>
+
+                        <button class="approve-btn" [class.disabled-btn]="claim.status !== 'PENDING'"
+                            (click)="approveClaim(claim.id!)" [disabled]="claim.status !== 'PENDING'">
+
+                            Approve
+
+                        </button>
+
+                        <button class="reject-btn" [class.disabled-btn]="claim.status !== 'PENDING'"
+                            (click)="rejectClaim(claim.id!)" [disabled]="claim.status !== 'PENDING'">
+
+                            Reject
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

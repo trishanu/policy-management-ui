@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from '../app/pages/dashboard/dashboard';
 import { authGuard } from '../app/guards/auth-guard';
 import { LayoutComponent } from './layout/layout';
+import { PolicyDashboard } from './pages/policy-dashboard/policy-dashboard';
+import { ClaimDashboard } from './pages/claim-dashboard/claim-dashboard';
 
 export const routes: Routes = [
 
@@ -40,12 +42,12 @@ export const routes: Routes = [
 
         {
             path:'policies',
-            component:AgentDashboard
+            component:PolicyDashboard
         },
 
         {
             path:'claims',
-            component:DashboardComponent
+            component:ClaimDashboard
         },
 
         {

@@ -1,0 +1,403 @@
+
+<div class="policy-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+      <h2>Policy Management</h2>
+      <p>Manage insurance policies, renewals and cancellations</p>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openPolicyDialog()">
+
+      <mat-icon>add_circle</mat-icon>
+      Add Policy
+
+    </button>
+
+  </div>
+
+  <!-- Statistics -->
+
+  <div class="stats-container">
+
+    <mat-card class="stat-card total">
+
+      <mat-icon>description</mat-icon>
+
+      <div>
+        <h2>{{totalPolicies}}</h2>
+        <p>Total Policies</p>
+      </div>
+
+    </mat-card>
+
+    <mat-card class="stat-card active">
+
+      <mat-icon>verified</mat-icon>
+
+      <div>
+        <h2>{{activePolicies}}</h2>
+        <p>Active Policies</p>
+      </div>
+
+    </mat-card>
+
+    <mat-card class="stat-card renewed">
+
+      <mat-icon>autorenew</mat-icon>
+
+      <div>
+        <h2>{{renewedPolicies}}</h2>
+        <p>Renewed</p>
+      </div>
+
+    </mat-card>
+
+    <mat-card class="stat-card cancelled">
+
+      <mat-icon>cancel</mat-icon>
+
+      <div>
+        <h2>{{cancelledPolicies}}</h2>
+        <p>Cancelled</p>
+      </div>
+
+    </mat-card>
+
+  </div>
+
+  <!-- Search & Filters -->
+
+  <mat-card class="search-card">
+
+    <div class="search-container">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Search Policy</mat-label>
+
+        <input
+          matInput
+          placeholder="Policy No / Customer Name"
+          [(ngModel)]="searchText">
+
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="searchPolicy()">
+
+        <mat-icon>search</mat-icon>
+
+        Search
+
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="loadPolicies()">
+
+        <mat-icon>refresh</mat-icon>
+
+        Refresh
+
+      </button>
+
+    </div>
+
+  </mat-card>
+
+  <!-- Policy Table -->
+
+  <mat-card class="table-card">
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort>
+
+      <!-- ID -->
+
+      <ng-container matColumnDef="id">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          ID
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.id}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Policy Number -->
+
+      <ng-container matColumnDef="policyNumber">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          Policy No
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.policyNumber}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Customer -->
+
+      <ng-container matColumnDef="customer">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          Customer Id
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.customerId}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Policy Type -->
+
+      <ng-container matColumnDef="policyType">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          Policy Type
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.policyType}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Premium -->
+
+      <ng-container matColumnDef="premiumAmount">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          Premium
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          ₹ {{policy.premiumAmount}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Start Date -->
+
+      <ng-container matColumnDef="startDate">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          Start Date
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.startDate}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- End Date -->
+
+      <ng-container matColumnDef="endDate">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+
+          End Date
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          {{policy.endDate}}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Status -->
+
+      <ng-container matColumnDef="status">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Status
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          <span class="status-badge">
+
+            {{policy.status}}
+
+          </span>
+
+        </td>
+
+      </ng-container>
+
+      <!-- Actions -->
+
+      <ng-container matColumnDef="actions">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Actions
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let policy">
+
+          <button
+            mat-icon-button
+            color="primary"
+            matTooltip="View"
+            (click)="viewPolicy(policy)">
+
+            <mat-icon>visibility</mat-icon>
+
+          </button>
+
+          <button
+            mat-icon-button
+            color="accent"
+            matTooltip="Edit"
+            (click)="editPolicy(policy)">
+
+            <mat-icon>edit</mat-icon>
+
+          </button>
+
+          <button
+            mat-icon-button
+            color="primary"
+            matTooltip="Renew"
+            (click)="renewPolicy(policy.id)">
+
+            <mat-icon>autorenew</mat-icon>
+
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            matTooltip="Cancel Policy"
+            (click)="cancelPolicy(policy.id)">
+
+            <mat-icon>block</mat-icon>
+
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            matTooltip="Delete"
+            (click)="deletePolicy(policy.id)">
+
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+        </td>
+
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns">
+      </tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+
+    </table>
+
+    <mat-paginator
+      [pageSize]="10"
+      [pageSizeOptions]="[5,10,20,50]"
+      showFirstLastButtons>
+    </mat-paginator>
+
+  </mat-card>
+
+</div>
